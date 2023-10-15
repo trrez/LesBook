@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LesBooks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <main>
+        <section class="glass"></section>
+    </main>
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">LesBooks</a>
+    
+            <div class="navbar-collapse justify-content-center" id="navbarTogglerDemo03">
+                <form action="/search" class="d-flex" method="POST" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="title">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+    
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/add">Add Book</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            {% for book in list_books %}
+            <div class="col-md-4 mt-3 mb-4">
+                <div class="card h-100 ">
+                    <img src="{{ book.img }}" class="card-img-top fixed-size-image"  alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/book/{{ book.id }}">{{ book.title }}</a></h5>
+                        <p class="card-text">Author: {{ book.author }}</p>
+                        <p class="card-text">Year: {{ book.year }}</p>
+                        <p class="card-text comments">{{ book.comments }}</p>
+                        <button class="btn btn-link"><a href="/book/{{ book.id }}">Read More</a></button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function toggleComments(button) {
+            var card = button.closest('.card');
+            var comments = card.querySelector('.card-text.comments');
+            comments.classList.toggle('expanded');
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
